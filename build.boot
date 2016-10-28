@@ -9,7 +9,9 @@
                  [org.slf4j/slf4j-nop "1.7.21" :scope "test"]
                  [confetti/confetti   "0.1.2-SNAPSHOT" :scope "test"]
                  [perun               "0.4.0-SNAPSHOT" :scope "test"]
-                 [hiccup              "1.0.5"]])
+                 [boot "2.6.0"]
+                 [hiccup              "1.0.5"]
+                 [enlive "1.1.6"]])
 
 (require '[pandeiro.boot-http :refer [serve]]
          '[adzerk.boot-reload  :refer [reload]]
@@ -19,7 +21,8 @@
          '[boot.util           :as util]
          '[clojure.string      :as string]
          '[io.perun            :as p]
-         '[io.perun.core       :as perun])
+         '[io.perun.core       :as perun]
+         '[com.martinklepsch.inliner :refer [inline]])
 
 (deftask build
   "Build blog"
@@ -29,7 +32,6 @@
         (cljs)
         (p/base)
         (p/global-metadata)
-        ; (p/markdown)
         (p/slug)
         (p/collection :renderer 'com.martinklepsch.site/index-page
                       :page "index.html"
@@ -48,16 +50,22 @@
   (read-string (slurp "martinklepsch-com.confetti.edn")))
 
 (deftask prod []
-  (task-options! cljs {:optimizations :advanced}))
+  (task-options! cljs {:optimizations :advanced}
+                 sass {:output-style :compressed}
+                 inline {:mapping  {"/app.js" "public/app.js"
+                                    "/martinklepsch-com.css" "public/martinklepsch-com.css"} 
+                         :files #{#"index.html"}}))
 
 (deftask deploy []
   (comp
    (build)
+   (inline)
    (sift :move {#"^public/" ""})
-   (sift :include #{#"martinklepsch-com.css$"
-                    #"index.html$"
-                    #"app.js$"
-                    #"robots.txt$"})
+   (sift :include #{;#"martinklepsch-com.css$"
+                    ;#"index.html$"
+                    ;#"app.js$"
+                    ;#"robots.txt$"
+                    })
    (sync-bucket :bucket (:bucket-name confetti-edn)
                 :prune true
                 :cloudfront-id (:cloudfront-id confetti-edn)
