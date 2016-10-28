@@ -8,11 +8,9 @@
            [goog.date DateTime]))
 
 (defn run []
-  (let [tz     1 #_(tz/createTimeZone (* my-timezone/utc-offset 60))
+  (let [tz     (tz/createTimeZone (* my-timezone/utc-offset 60))
         offset (+ (/ (.getOffset tz (js/Date.)) 60)
-                  5
-
-                  #_(/ (.getTimezoneOffset (DateTime.)) 60))
+                  (/ (.getTimezoneOffset (DateTime.)) 60))
         el     (gdom/getElement "utc-offset")
         absolute-offset (js/Math.abs offset)
         txt (case offset
