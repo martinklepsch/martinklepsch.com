@@ -1,11 +1,8 @@
 (ns com.martinklepsch.site
   (:require [com.martinklepsch.timezone :as my-timezone]
+            [clojure.java.io :as io]
             [hiccup.page :as hp])
   (:import  java.text.SimpleDateFormat))
-
-(defn trace [x]
-  (prn x)
-  x)
 
 (def +twitter-uri+ "https://twitter.com/martinklepsch")
 
@@ -15,18 +12,14 @@
    [:meta {:charset "utf-8"}]
    [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge,chrome=1"}]
    [:meta {:name "viewport" :content "width=device-width, initial-scale=1, maximum-scale=1"}]
-   [:meta {:itemprop "author" :name "author" :content "Martin Klephsch (martinklepsch@googlemail.com)"}]
-   [:meta {:name "description" :itemprop "description" :content "Personal Website and Blog of Martin Klepsch"}]
-   [:title (if title (str title " — Martin Klepsch") "Martin Klepsch")]
+   [:meta {:itemprop "author" :name "author" :content "Martin Klepsch (martinklepsch@googlemail.com)"}]
+   [:meta {:name "description" :itemprop "description" :content "Martin Klepsch"}]
+   [:title "Martin Klepsch"]
    
    [:link {:rel "shortcut icon" :href "images/favicon.ico"}]
    [:link {:rel "author" :href "humans.txt"}]
-   ;[:link {:rel "alternate" :type "application/rss+xml" :title "RSS" :href "/feed.rss"}]
    [:link {:type "text/css" :rel "stylesheet"
-           :href "/martinklepsch-com.css"}]
-   #_[:link {:type "text/css" :rel "stylesheet"
-           :href "https://fonts.googleapis.com/css?family=Open+Sans:300|Roboto+Slab:400,700"}]
-   #_(google-analytics)])
+           :href "/martinklepsch-com.css"}]])
 
 (defn base
   [opts & content]
@@ -35,7 +28,6 @@
             [:body.system-sans-serif.dark-gray
              (into [:div.mh3] content)
              [:script {:src "/app.js"}]]))
-
 
 (defn index-page [{:keys [entries]}]
   (let [[curr-page no-of-pages] (:page (first entries))]
