@@ -1,10 +1,5 @@
-@import "basscss"
-
 body
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-
-.lh-copy
-  line-height: 1.6
 
 .lined
   text-decoration: none
@@ -14,3 +9,30 @@ body
 #utc-offset
   color: transparent
   transition: color 1s
+
+// Helpers copied from tachyons
+
+.lh-copy
+  line-height: 1.6
+
+.mw6
+  max-width: 32rem
+
+.mt5
+  margin-top: 4rem
+
+.mb5
+  margin-bottom: 4rem
+
+.mh2
+  margin-left: .5rem
+  margin-right: .5rem
+
+.mh3
+  margin-left: 1rem
+  margin-right: 1rem
+
+@media screen and (min-width: 30em)
+  .mh4-ns
+    margin-left: 2rem
+    margin-right: 2rem

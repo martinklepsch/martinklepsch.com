@@ -26,18 +26,18 @@
   (hp/html5 {:lang "en"}
             (head opts)
             [:body.system-sans-serif.dark-gray
-             (into [:div.mh3] content)
+             (into [:div] content)
              [:script {:src "/app.js"}]]))
 
 (defn index-page [{:keys [entries]}]
   (let [[curr-page no-of-pages] (:page (first entries))]
     (base
      {}
-     [:div.mx3.mb4
-      [:div.mb4
-       [:h1.mt4 "Martin Klepsch"]
+     [:div.mb5.mh3.mh4-ns
+      [:div.mb5
+       [:h1.mt5 "Martin Klepsch"]
        [:span "People × Technology"]]
-      [:div.max-width-2.lh-copy
+      [:div.mw6.lh-copy
        [:p "I'm a software consultant with a focus on the development of user interfaces. This interest got me into Clojure and ClojureScript and these two eventually became my favorite tools for most of the work I do."]
        [:p "Lately I've been working remotely with various companies using Clojure and ClojureScript shipping features and helping them to develop a stable and maintainable codebase."]
        [:p "If you're looking for some help with your Clojure or ClojureScript project, just "
