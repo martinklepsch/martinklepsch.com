@@ -7,7 +7,7 @@
   (:import [goog.i18n TimeZone]
            [goog.date DateTime]))
 
-(defn run []
+(defn inject-timezone-offset-information! []
   (let [tz     (tz/createTimeZone (* my-timezone/utc-offset 60))
         offset (+ (/ (.getOffset tz (js/Date.)) 60)
                   (/ (.getTimezoneOffset (DateTime.)) 60))
@@ -27,4 +27,6 @@
     (gdom/setTextContent el txt)
     (gstyle/setStyle el #js {:color "black"})))
 
+(defn run []
+  (js/window.setTimeout (inject-timezone-offset-information!) 3000))
 
