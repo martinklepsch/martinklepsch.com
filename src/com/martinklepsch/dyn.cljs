@@ -8,6 +8,7 @@
            [goog.date DateTime]))
 
 (defn inject-timezone-offset-information! []
+  (js/console.log "Adding Timezone Information...")
   (let [tz     (tz/createTimeZone (* my-timezone/utc-offset 60))
         offset (+ (/ (.getOffset tz (js/Date.)) 60)
                   (/ (.getTimezoneOffset (DateTime.)) 60))
@@ -28,5 +29,6 @@
     (gstyle/setStyle el #js {:color "black"})))
 
 (defn run []
+  (js/console.log "Booting up...")
   (js/window.setTimeout (inject-timezone-offset-information!) 3000))
 
