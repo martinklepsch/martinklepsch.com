@@ -62,7 +62,7 @@
    (inline)
    (sift :move {#"^public/" ""})
    (sift :include #{;#"martinklepsch-com.css$"
-                    ;#"index.html$"
+                    #"index.html$"
                     ;#"app.js$"
                     ;#"robots.txt$"
                     })
