@@ -1,3 +1,3 @@
 (ns com.martinklepsch.timezone)
 
-(def utc-offset 1)
+(def utc-offset 7)
