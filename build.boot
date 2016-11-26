@@ -54,10 +54,12 @@
                  sass {:output-style :compressed}
                  inline {:mapping  {"/app.js" "public/app.js"
                                     "/martinklepsch-com.css" "public/martinklepsch-com.css"} 
-                         :files #{#"index.html"}}))
+                         :files #{#"index.html"}})
+  identity)
 
 (deftask deploy []
   (comp
+   (prod)
    (build)
    (inline)
    (sift :move {#"^public/" ""})
