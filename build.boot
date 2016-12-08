@@ -7,7 +7,7 @@
                  [adzerk/boot-reload "0.4.13" :scope "test"]
                  [deraen/boot-sass    "0.2.1" :scope "test"]
                  [org.slf4j/slf4j-nop "1.7.21" :scope "test"]
-                 [confetti/confetti   "0.1.2-SNAPSHOT" :scope "test"]
+                 [confetti/confetti   "0.1.3-alpha" :scope "test"]
                  [perun               "0.4.0-SNAPSHOT" :scope "test"]
                  [boot "2.6.0"]
                  [hiccup              "1.0.5"]
@@ -46,14 +46,11 @@
                 :on-jsload 'com.martinklepsch.dyn/run)
         (build)))
 
-(def confetti-edn
-  (read-string (slurp "martinklepsch-com.confetti.edn")))
-
 (deftask prod []
   (task-options! cljs {:optimizations :advanced}
                  sass {:output-style :compressed}
                  inline {:mapping  {"/app.js" "public/app.js"
-                                    "/martinklepsch-com.css" "public/martinklepsch-com.css"} 
+                                    "/martinklepsch-com.css" "public/martinklepsch-com.css"}
                          :files #{#"index.html"}})
   identity)
 
@@ -63,13 +60,6 @@
    (build)
    (inline)
    (sift :move {#"^public/" ""})
-   (sift :include #{;#"martinklepsch-com.css$"
-                    #"index.html$"
-                    ;#"app.js$"
-                    ;#"robots.txt$"
-                    })
-   (sync-bucket :bucket (:bucket-name confetti-edn)
-                :prune true
-                :cloudfront-id (:cloudfront-id confetti-edn)
-                :access-key (:access-key confetti-edn)
-                :secret-key (:secret-key confetti-edn))))
+   (sift :include #{#"index.html$"})
+   (sync-bucket :confetti-edn "martinklepsch-com"
+                :prune true)))
