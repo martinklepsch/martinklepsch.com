@@ -15,7 +15,6 @@
    [:meta {:itemprop "author" :name "author" :content "Martin Klepsch (martinklepsch@googlemail.com)"}]
    [:meta {:name "description" :itemprop "description" :content "Martin Klepsch"}]
    [:title "Martin Klepsch"]
-   
    [:link {:rel "shortcut icon" :href "images/favicon.ico"}]
    [:link {:rel "author" :href "humans.txt"}]
    [:link {:type "text/css" :rel "stylesheet"

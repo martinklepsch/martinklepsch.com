@@ -29,6 +29,5 @@
     (gstyle/setStyle el #js {:color "black"})))
 
 (defn run []
-  (js/console.log "Booting up...")
   (js/window.setTimeout inject-timezone-offset-information! 1000))
 
