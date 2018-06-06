@@ -1,13 +1,13 @@
 (set-env!
  :source-paths    #{"src" "stylesheets" "content"}
  :resource-paths  #{"resources"}
- :dependencies '[[org.clojure/clojurescript "1.9.293" :scope "test"]
+ :dependencies '[[org.clojure/clojurescript "1.10.238" :scope "test"]
                  [pandeiro/boot-http  "0.7.3" :scope "test"]
-                 [adzerk/boot-cljs "1.7.228-2" :scope "test"]
+                 [adzerk/boot-cljs "2.1.4" :scope "test"]
                  [adzerk/boot-reload "0.4.13" :scope "test"]
                  [deraen/boot-sass    "0.2.1" :scope "test"]
                  [org.slf4j/slf4j-nop "1.7.21" :scope "test"]
-                 [confetti/confetti   "0.1.3-alpha" :scope "test"]
+                 [confetti/confetti   "0.2.0" :scope "test"]
                  [perun               "0.4.0-SNAPSHOT" :scope "test"]
                  [boot "2.6.0"]
                  [hiccup              "1.0.5"]
@@ -46,8 +46,11 @@
                 :on-jsload 'com.martinklepsch.dyn/run)
         (build)))
 
-(deftask prod []
-  (task-options! cljs {:optimizations :advanced}
+(deftask prod
+  [d debug bool "debug mode"]
+  (task-options! cljs {:optimizations :advanced
+                       :compiler-options {:pretty-print debug
+                                          :pseudo-names debug}}
                  sass {:output-style :compressed}
                  inline {:mapping  {"/app.js" "public/app.js"
                                     "/martinklepsch-com.css" "public/martinklepsch-com.css"}
