@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import HowICanHelp from '../components/HowICanHelp.astro';
+import { UTC_OFFSET } from '../timezone';
+
+const utcSuffix = UTC_OFFSET > 0 ? `+${UTC_OFFSET}` : UTC_OFFSET < 0 ? `${UTC_OFFSET}` : '';
+---
+
+<Base>
+  <div class="mb5 mh3 mh4-ns">
+    <div class="mb5">
+      <h1 class="mt5">Martin Klepsch</h1>
+      <span>People × Technology</span>
+    </div>
+    <div class="mw6 lh-copy">
+      <p>
+        I'm a software consultant with a focus on user interfaces and development
+        tooling. This interest got me into Clojure and ClojureScript and these two eventually
+        became my favorite tools for most of my work.
+      </p>
+      <p>
+        Lately I've been working remotely with various companies using Clojure/Script
+        shipping features, taming codebases and improving their Clojure practices.
+      </p>
+      <p>
+        If you're looking for some help with your project, just <a class="lined" href="mailto:martinklepsch@googlemail.com">shoot me an email</a>. While I'm most
+        experienced with Clojure different language choices can also be interesting.
+      </p>
+      <p>
+        I'm also interested in the challenges of building up product teams (especially
+        distributed ones) and developing workflows that are both flexible for team members and
+        efficient in time and quality.
+      </p>
+      <p>I'm currently in timezone UTC{utcSuffix}. <span id="utc-offset"></span></p>
+      <p>
+        You can also follow what I'm up to on <a class="lined" href="https://twitter.com/martinklepsch">Twitter</a> &amp; <a class="lined" href="https://github.com/martinklepsch">GitHub</a>.
+      </p>
+
+      <HowICanHelp />
+    </div>
+  </div>
+
+  <script>
+    import '../scripts/utc-offset';
+  </script>
+</Base>

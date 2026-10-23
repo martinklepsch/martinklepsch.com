@@ -1,3 +1,0 @@
-{:require  [com.martinklepsch.dyn]
- :init-fns [com.martinklepsch.dyn/run]
- :compiler-options {:asset-path "app.out"}}
