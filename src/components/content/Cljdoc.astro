@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import cljdoc from '../../assets/cljdoc.png';
+---
+
+<div class="space-y-6">
+  <Image src={cljdoc} width={1024} alt="A library's documentation page on cljdoc" />
+  <p>
+    Back in 2019, I became aware that publishing documentation for libraries in the Clojure/Script ecosystem was a very manual process that every maintainer had to go through, often at suboptimal results.
+  </p>
+
+  <p>
+    Frequently documentation would be outdated or just look very different from project to project, impacting usability.
+  </p>
+
+  <p class="border-l-[1.5px] border-white/30 pl-4 text-2xl italic">
+    I wondered: Could we generate documentation automatically, for everyone?
+  </p>
+
+  <p>
+    One key challenge stemmed from Clojure being a highly dynamic language, meaning you essentially have to run the code to extract API documentation. This creates a sandboxing problem when you want to analyze any publicly shared project out there.
+  </p>
+
+  <p>
+    Perhaps cheating the problem I built a system that runs analysis on CircleCI, kicking of jobs using their API and finally ingesting the resulting data into the cljdoc database.
+  </p>
+
+  <p>
+    Today cljdoc is approaching 100.000 documentation builds and is a staple for many Clojure and ClojureScript developers. The project is 'feature-complete' and maintained by Lee Read and myself.
+  </p>
+</div>

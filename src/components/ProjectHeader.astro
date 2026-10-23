@@ -1,0 +1,16 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const vt = (part: string) => `view-transition-name: ${part}-${project.slug}`;
+---
+
+<div class="relative max-w-xs md:max-w-sm lg:max-w-lg">
+  <h2 class="text-2xl font-semibold" style={`${vt('ptitle')}; width: fit-content`}>{project.title}</h2>
+  <div style={`${vt('pyears')}; width: fit-content`}>{project.years}</div>
+  <p class="mt-6" style={vt('pdesc')}>{project.desc}</p>
+</div>

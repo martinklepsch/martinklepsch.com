@@ -1,0 +1,24 @@
+---
+// Perspective-tilted dot grid shown on the right side of a project.
+interface Props {
+  /** Tailwind gradient classes for the dots. */
+  gradient: string;
+  /** Dot radius and grid spacing, in px. */
+  dot: number;
+  spacing: number;
+}
+
+const { gradient, dot, spacing } = Astro.props;
+const mask = `radial-gradient(${dot}px, #fff 97%, transparent 100%) 0 0/${spacing}px ${spacing}px`;
+---
+
+<div
+  class="absolute top-0 right-0 bottom-0 h-full w-1/3 overflow-y-clip"
+  style="perspective: 1213px; perspective-origin: 50% 50%"
+>
+  <div
+    class:list={['h-full w-full', gradient]}
+    style={`mask: ${mask}; -webkit-mask: ${mask}; transform: rotateX(9deg) rotateY(-10deg) scale(1.5)`}
+  >
+  </div>
+</div>

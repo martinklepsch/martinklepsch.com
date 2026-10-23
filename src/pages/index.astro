@@ -1,46 +1,52 @@
 ---
-import Base from '../layouts/Base.astro';
-import HowICanHelp from '../components/HowICanHelp.astro';
-import { UTC_OFFSET } from '../timezone';
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ProjectHeader from '../components/ProjectHeader.astro';
+import Illustration from '../components/Illustration.astro';
+import { PROJECTS } from '../data/projects';
+import portrait from '../assets/portrait.jpg';
 
-const utcSuffix = UTC_OFFSET > 0 ? `+${UTC_OFFSET}` : UTC_OFFSET < 0 ? `${UTC_OFFSET}` : '';
+const linkClass =
+  'underline decoration-slate-700/20 decoration-[1.5px] underline-offset-[3px] transition-colors duration-200 hover:decoration-slate-700/40';
 ---
 
-<Base>
-  <div class="mb5 mh3 mh4-ns">
-    <div class="mb5">
-      <h1 class="mt5">Martin Klepsch</h1>
-      <span>People × Technology</span>
+<Layout themeColor="#f8f8f8">
+  <div class="mx-4 mt-24 max-w-5xl pb-48 sm:mx-[10vw] lg:mx-[14vw] lg:mt-48 lg:text-lg">
+    <div class="max-w-3xl px-4 font-medium text-slate-900/90 lg:px-8">
+      <Image
+        class="mb-6 block h-24 w-24 rounded-full border border-white/30 shadow-xs"
+        src={portrait}
+        width={96}
+        height={96}
+        densities={[1, 2]}
+        alt="Portrait of Martin Klepsch"
+        loading="eager"
+      />
+      <p class="my-2">I'm Martin, a product engineer and curious mind, looking for my next adventure.</p>
+      <p class="my-2">Below you can find a small tour of things I worked on recently.</p>
     </div>
-    <div class="mw6 lh-copy">
-      <p>
-        I'm a software consultant with a focus on user interfaces and development
-        tooling. This interest got me into Clojure and ClojureScript and these two eventually
-        became my favorite tools for most of my work.
-      </p>
-      <p>
-        Lately I've been working remotely with various companies using Clojure/Script
-        shipping features, taming codebases and improving their Clojure practices.
-      </p>
-      <p>
-        If you're looking for some help with your project, just <a class="lined" href="mailto:martinklepsch@googlemail.com">shoot me an email</a>. While I'm most
-        experienced with Clojure different language choices can also be interesting.
-      </p>
-      <p>
-        I'm also interested in the challenges of building up product teams (especially
-        distributed ones) and developing workflows that are both flexible for team members and
-        efficient in time and quality.
-      </p>
-      <p>I'm currently in timezone UTC{utcSuffix}. <span id="utc-offset"></span></p>
-      <p>
-        You can also follow what I'm up to on <a class="lined" href="https://twitter.com/martinklepsch">Twitter</a> &amp; <a class="lined" href="https://github.com/martinklepsch">GitHub</a>.
-      </p>
 
-      <HowICanHelp />
+    <div class="mt-16 space-y-8 text-white/90">
+      {
+        PROJECTS.map((project) => (
+          <a href={`/${project.slug}`} class="block">
+            <div
+              class:list={['relative h-80 overflow-hidden rounded-2xl p-4 lg:p-8', project.bg]}
+              style={`view-transition-name: backdrop-${project.slug}`}
+            >
+              <ProjectHeader project={project} />
+              <Illustration slug={project.slug} />
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="my-16 flex items-center justify-center gap-4 font-medium text-slate-900/90">
+      <a class={linkClass} href="mailto:martinklepsch@gmail.com">Email</a>
+      <a class={linkClass} href="https://github.com/martinklepsch">GitHub</a>
+      <a class={linkClass} href="https://x.com/martinklepsch">X</a>
+      <a class={linkClass} href="https://read.cv/martinklepsch">Read.cv</a>
     </div>
   </div>
-
-  <script>
-    import '../scripts/utc-offset';
-  </script>
-</Base>
+</Layout>

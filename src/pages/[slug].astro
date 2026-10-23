@@ -1,0 +1,70 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../layouts/Layout.astro';
+import ProjectHeader from '../components/ProjectHeader.astro';
+import Illustration from '../components/Illustration.astro';
+import Ctxs from '../components/content/Ctxs.astro';
+import Gatheround from '../components/content/Gatheround.astro';
+import Dynogee from '../components/content/Dynogee.astro';
+import Cljdoc from '../components/content/Cljdoc.astro';
+import { PROJECTS, type Project } from '../data/projects';
+
+export const getStaticPaths = (() =>
+  PROJECTS.map((project) => ({ params: { slug: project.slug }, props: { project } }))) satisfies GetStaticPaths;
+
+const { project } = Astro.props as { project: Project };
+
+const CONTENT = { ctxs: Ctxs, gatheround: Gatheround, dynogee: Dynogee, cljdoc: Cljdoc } as const;
+const Content = CONTENT[project.slug as keyof typeof CONTENT];
+---
+
+<Layout title={`${project.title} — Martin Klepsch`} description={project.desc} themeColor={project.theme}>
+  <div
+    class:list={['fixed inset-0 -z-10', project.bg]}
+    style={`view-transition-name: backdrop-${project.slug}`}
+  >
+  </div>
+
+  <div class="relative min-h-svh overflow-x-hidden text-white/80 lg:text-lg">
+    <div class="mx-4 sm:mx-[10vw] lg:mx-[14vw]">
+      <a
+        id="home"
+        href="/"
+        class="animate-home-in fixed top-20 z-30 mx-4 rounded-full bg-white/60 px-4 py-2 font-semibold text-slate-800 backdrop-blur-lg transition-colors duration-300 hover:bg-white/70 sm:mx-8"
+        style="box-shadow: var(--shadow-elevation-medium)"
+      >
+        Home
+      </a>
+    </div>
+
+    <div class="relative px-4 pt-64 sm:px-[10vw] lg:px-[14vw]">
+      <div class="px-4 sm:px-8">
+        <ProjectHeader project={project} />
+        <div class="animate-content-in mt-6 max-w-lg pb-32">
+          <Content />
+        </div>
+      </div>
+      {project.slug !== 'gatheround' && <Illustration slug={project.slug} />}
+    </div>
+    {project.slug === 'gatheround' && <div class="absolute inset-x-0 top-0 h-svh"><Illustration slug={project.slug} /></div>}
+  </div>
+</Layout>
+
+<script>
+  // Going "Home" from a project we were sent to from the index should feel like
+  // closing it: step back in history so the index keeps its scroll position.
+  function goHome(event?: Event) {
+    const ref = document.referrer && new URL(document.referrer);
+    if (ref && ref.origin === location.origin && ref.pathname === '/' && history.length > 1) {
+      event?.preventDefault();
+      history.back();
+    } else if (!event) {
+      location.href = '/';
+    }
+  }
+
+  document.getElementById('home')?.addEventListener('click', goHome);
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') goHome();
+  });
+</script>

@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import playbar from '../../assets/playbar.png';
+import groupshare from '../../assets/groupshare.png';
+---
+
+<div class="space-y-6">
+  <Image class="rounded-xl" src={playbar} width={1024} alt="Gatheround's in-meeting play bar" />
+  <p>Among other things I lead or contributed to</p>
+  <ul class="space-y-2 pl-8">
+    <li class="relative">the core breakout matching experience, implementing the overall UX and Gatheround's unique matching algorithm</li>
+    <li class="relative">an Airtable-backed CMS, driving a rich catalogue of ready-to-go meeting templates boosting activation metrics</li>
+    <li class="relative">architecting a rebrand of the entire product without slowing down ongoing feature development</li>
+    <li class="relative">coaching peers on best practices regarding React, ClojureScript, functional programming, etc.</li>
+  </ul>
+  <Image class="rounded-xl" src={groupshare} width={1024} alt="Group sharing in a Gatheround session" />
+  <blockquote class="border-l-[1.5px] border-white/30 pl-4 text-2xl">
+    “Gatheround is the best way to connect everyone on our community. We use many amazing tools and in every aspect, we have the highest engagement on gatheround. By far!”
+  </blockquote>
+  <table class="mt-6 max-w-sm text-sm opacity-80">
+    <tbody>
+      <tr>
+        <td class="pr-2 align-top font-bold">Stack:</td>
+        <td>Firebase, Cloud Functions, React, ClojureScript, Daily.js, Framer Motion, Tailwind CSS</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

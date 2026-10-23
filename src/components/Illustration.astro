@@ -1,0 +1,14 @@
+---
+import DotsIllustration from './DotsIllustration.astro';
+import GatheroundIllustration from './GatheroundIllustration.astro';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+{slug === 'ctxs' && <DotsIllustration gradient="bg-linear-to-br from-indigo-500/20 to-indigo-700/40" dot={1} spacing={16} />}
+{slug === 'gatheround' && <GatheroundIllustration />}
+{slug === 'dynogee' && <DotsIllustration gradient="bg-linear-to-br from-white/20 to-white/40" dot={0.5} spacing={12} />}

@@ -1,0 +1,34 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  themeColor: string;
+}
+
+const {
+  title = 'Martin Klepsch, Product Engineer',
+  description = "I'm Martin, a product engineer and curious mind. A small tour of things I worked on recently.",
+  themeColor,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" style={`background-color: ${themeColor}`}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content={themeColor} />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="256x256" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <title>{title}</title>
+    <Font cssVariable="--font-inter" preload />
+    <script is:inline defer src="https://assets.onedollarstats.com/stonks.js"></script>
+  </head>
+  <body class="font-sans">
+    <slot />
+  </body>
+</html>

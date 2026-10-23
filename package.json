@@ -6,11 +6,12 @@
     "dev": "astro dev --port 4000",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check",
-    "deploy": "astro build && aws s3 sync dist/ s3://martinklepsch-com-sitebucket-bpxguraa9gra --delete && aws cloudfront create-invalidation --distribution-id E19YPI8Q1TQU54 --paths \"/*\""
+    "check": "astro check"
   },
   "dependencies": {
-    "astro": "^7.4.2"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.2",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
