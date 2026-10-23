@@ -4,6 +4,10 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://martinklepsch.com',
+  // Emit ctxs.html rather than ctxs/index.html so Pages serves /ctxs without a redirect.
+  build: {
+    format: 'file',
+  },
   fonts: [
     {
       provider: fontProviders.fontsource(),
